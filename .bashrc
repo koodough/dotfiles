@@ -21,10 +21,10 @@ platform='unknown'
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
 #Linux
-platform='linux'
+echo platform='linux'
 
 #Prompt
-PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\[\e[37;1m\]\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\[\e[37;1m\]\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
+PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\[\e[37;1m\]\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
 #"
 
 #EDITOR
@@ -344,4 +344,6 @@ ulimit -s 16384
 export PATH=/usr/local/rvm/bin:/usr/local/share/npm/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$HOME/Sites/Go/bin:/opt/local/bin:/opt/local/sbin:/usr/local/share/npm/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$HOME/Sites/Go/bin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/local/go/bin:/usr/local/sbin:/etc/init.d:$HOME/Sites/GoRoot/bin:/Library/PostgreSQL/9.2/bin:/usr/local/sbin:/etc/init.d:$HOME/Sites/GoRoot/bin:/Library/PostgreSQL/9.2/bin:$HOME/.gems/bin
 
 
-eval "$(rbenv init -)"
+if which rbenv >/dev/null; then
+	eval "$(rbenv init -)"
+fi
