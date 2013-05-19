@@ -1,9 +1,6 @@
-#screen -t "SAMSwap" cd "/Users/samchambers/Sites/Documents/My Work/SAMSwap/WWW" && bash
-#screen -t WovAc cd '/Users/samchambers/Sites/Documents/My Work/WovAc/WWW2' && bash
-
-
-
-backtick 1 60 60 $HOME/.bin/bin/power.sh
+#backtick 1 60 60 $HOME/.bin/power.sh
+#backtick 1 60 60 $HOME/.bin/load.sh
+#backtick 1 60 60 $HOME/.bin/who.sh
 
 hardstatus alwayslastline
 hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
@@ -13,34 +10,20 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u
 termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007:ti@:te@'
 #defhstatus "screen ^E (^Et) | $USER@^EH"
 
-#termcapinfo xterm* ti@:te@
+defscrollback 10000
+
+# fix scrollback in putty
+termcapinfo xterm* ti@:te@
+
+source $HOME/.screenrc_aliases
 
 
-chdir /Aether/Documents/Work/WovAc/wovacember/
-screen -t revel 0 revel run wovac
-screen -t wovac 1 
+chdir /var/log
+screen -t Logs 0
 
-chdir /Users/samo/
+chdir $HOME/
+screen -t Home 1
 screen -t bash 2 
-
-chdir /Users/samo/Sites/chef-repo/
-screen -t chef 3 
-
-chdir /Users/samo/Sites/chef-repo/
-screen -t remote-node 4 
-
-chdir /Users/samo/Sites/code/
-screen -t code 5
-
-#chdir /Users/samo/Sites/Documents/Work/Clients/Ingrid Toledo/WWW
-#screen -t Heli 6 
-screen -t weave 6 sudo ssh root@weave.wovac.com -p 443
-
-chdir /Users/samo/
-screen -t http 7 sudo /Aether/bin/apachectl -k graceful
-screen -t xeon 8 ssh root@cc.wovac.com
-screen -t ss 9 ssh sam@samswap.com
-screen -t cc 10 sudo ssh -D 80 root@cc.wovac.com -p 22
-screen -t cd 11 sudo ssh root@10.0.0.7 -p 22
-
-
+screen -t bash 3 
+screen -t bash 4 
+screen -t bash 5

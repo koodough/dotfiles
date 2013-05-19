@@ -69,8 +69,8 @@ Bundle 'Shougo/neosnippet.git'
 "Persistent undo
 set undodir=~/.vim/undodir
 set undofile
-set undolevels = 1000 "maximum number of changes that can be undone
-set undoreload = 10000 "maximum number lines to save for undo on a buffer reload
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=1000 "maximum number lines to save for undo on a buffer reload
 
 
  " original repos on github
@@ -164,48 +164,7 @@ inoremap <D-{> :tabp
 
 
 
-
-
-
-
-"Tokenize it so it has the following form (without spaces)
-"Label1 JJ Label2 JJ Label3 JJ Label4
-"Or if you prefer use something other than 'JJ' but DO NOT
-"use symbols as they could interfere with the shell command
-"line
-func! LoadFullSession()
-	tabfirst
-	TName 'SS'
-	tabnext
-	TName 'MC'
-	tabnext
-	TName 'Wovac Design'
-	tabnext
-	TName 'revel'
-	tabnext
-	TName 'angular'
-	tabnext
-	TName 'Ember'
-	tabnext
-	TName 'wovacember'
-	tabnext
-	TName 'CrossFilter'
-	tabnext
-	TName 'heli'
-	tabnext
-	TName 'gopost'
-	tabnext
-	TName 'Chef Roles'
-	tabnext
-	TName 'Chef Cookbook'
-	tabnext
-	TName 'Dotfiles'
-	tabnext
-	TName 'Apache'
-endfunc
-
-nnoremap <leader>mks :call MakeFullSession()<CR>
-nnoremap <leader>tab :call LoadFullSession()<CR>
+source $HOME/.vim_aliases
 
 
 au BufRead,BufNewFile *.go set filetype=go
