@@ -2,6 +2,10 @@
 #backtick 1 60 60 $HOME/.bin/load.sh
 #backtick 1 60 60 $HOME/.bin/who.sh
 
+#UTF8
+#defutf8 on
+#utf8 on
+
 #caption always "%n(%t) : %C"
 defscrollback 10000
 startup_message off

@@ -14,7 +14,15 @@ case `uname` in
 		info="\u@\h"
 		;;
 	Darwin)
-		icon="🍋 "
+		#icon="🍋 "
+		icon="⦿"
+		#icon="( ° ͜ʖ °)"
+		#icon="ʕ◔ϖ◔ʔ"
+		#icon="(ಠ▽ಠ)"
+		#icon="(⌐■_■)"
+		#error="( •_•)>⌐■-■"
+		#icon="ᶘ ᵒᴥᵒᶅ"
+		#icon="ಠ_ರೃ"
 		error="ಠ_ಠ"
 		info="\u@\h"
 		;;
@@ -29,7 +37,7 @@ function prompt {
 
 #No commands before the $?. Or it won't capture the user's command last command
 	if [ $? = 0 ];then 
-		echo "$icon \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
+		echo "\[\e[36m\]$icon\[\e[37;1m\] \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
 	else 
 		echo "\[\e[31m\]$error \[\e[32;1m\](\[\e[37;1m\]$info \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]";
 	fi

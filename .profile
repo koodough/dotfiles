@@ -1,1 +1,1 @@
-screen -xRRAU
+screen -xRRAU && exit 0;
