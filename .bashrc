@@ -6,6 +6,37 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+#Prompt Theme
+case `uname` in
+	Linux)
+		icon=">"
+		error="0_0"
+		info="\u@\h"
+		;;
+	Darwin)
+		icon="🍋 "
+		error="ಠ_ಠ"
+		info="\u@\h"
+		;;
+	*)
+
+esac
+
+function prompt {
+
+#echo $0;
+
+
+#No commands before the $?. Or it won't capture the user's command last command
+	if [ $? = 0 ];then 
+		echo "$icon \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
+	else 
+		echo "\[\e[31m\]$error \[\e[32;1m\](\[\e[37;1m\]$info \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]";
+	fi
+
+
+}
+
 
 platform='unknown'
 unamestr=`uname`
@@ -14,8 +45,12 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	platform='linux'
 
 	#Prompt
-	PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
+	#UTF8
+	#PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u@\h \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
 	#"
+	#PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]0_0 \[\e[32;1m\](\[\e[37;1m\]\u@\h \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
+	#"
+	#`
 
 	#EDITOR
 	export EDITOR=$(which vim)
@@ -26,8 +61,12 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	##Sleep
 	alias sleepytime="echo -n mem > /sys/power/state;"
 	alias n8="sleepytime"
+	alias ls='ls -lhp --color -G'
 
-	alias VirtualBox="for m in vbox{drv,netadp,netflt}; do modprobe $m; done; VirtualBox &"
+	function VBox {
+	for m in vbox{drv,netadp,netflt}; do modprobe $m; done; 
+	VirtualBox;
+	}
 	alias mountfolder="mount -rbind"
 
 	#Debian
@@ -43,7 +82,10 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 	#Mac
 
 	#Prompt
-	PS1="`if [ \$? = 0 ];then echo \"🍋  \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi`"
+	#echo "mac"
+	PROMPT_COMMAND="PS1=\`prompt $?\`"
+	#PS1="\`prompt\`"
+	#PS1="\`if [ \$? = 0 ];then echo \"🍋  \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u@\h \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi`"
 	#"
 	#`
 
@@ -62,6 +104,9 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 
 
 fi
+
+
+
 
 #tunnelblick
 function kick-in-the-balls() {
@@ -131,7 +176,7 @@ alias hostsupdate='curl http://someonewhocares.org/hosts/hosts -o /etc/hosts && 
 alias size='du -sh'
 alias sha1='openssl sha1'
 alias wget='wget -c'
-alias ls='ls -lh -G'
+alias ls='ls -lhp -G'
 export LSCOLORS=Exfxcxdxbxegedabagacad
 cd() { builtin cd "$1" ; ls; }
 

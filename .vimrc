@@ -1,4 +1,3 @@
-"3ITgos VIM
 "
 "set nocompatible               " be iMproved
  filetype off                   " required!
@@ -169,3 +168,11 @@ source $HOME/.vim_aliases
 
 au BufRead,BufNewFile *.go set filetype=go
 
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-l> :wincmd l<CR>
+:map - <C-W>-
+:map + <C-W>+
+:map <M-<> <C-W><
+:map <M->> <C-W>>

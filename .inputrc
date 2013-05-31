@@ -1,0 +1,2 @@
+#Case insensitive autocomplete tabbing
+set completion-ignore-case on

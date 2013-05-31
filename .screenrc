@@ -2,15 +2,34 @@
 #backtick 1 60 60 $HOME/.bin/load.sh
 #backtick 1 60 60 $HOME/.bin/who.sh
 
+#caption always "%n(%t) : %C"
+defscrollback 10000
+startup_message off
+hardstatus on
 hardstatus alwayslastline
 hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+
+#You will see that ^\ became attention key sequence instead of default ^A.
+#escape ^\\ 
+#http://www.softpanorama.org/Utilities/Screen/screenrc%5Fexamples.shtml
+#escape ^A #default
+
+# resizing commands for a split screen
+ bind = resize =
+ bind + resize +1
+ bind - resize -1
+ bind _ resize max
+ bind q quit
+
+#register [ "\033:se noai\015a"
+#register ] "\033:se ai\015a"
+bind ^] paste [.]
 
 #Change screen terminal title
 #termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
 termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007:ti@:te@'
 #defhstatus "screen ^E (^Et) | $USER@^EH"
 
-defscrollback 10000
 
 # fix scrollback in putty
 termcapinfo xterm* ti@:te@
@@ -23,7 +42,7 @@ screen -t Logs 0
 
 chdir $HOME/
 screen -t Home 1
-screen -t bash 2 
-screen -t bash 3 
-screen -t bash 4 
-screen -t bash 5
+screen
+#screen -t bash 3 
+#screen -t bash 4 
+#screen -t bash 5
