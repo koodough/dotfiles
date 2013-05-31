@@ -37,9 +37,9 @@ function prompt {
 
 #No commands before the $?. Or it won't capture the user's command last command
 	if [ $? = 0 ];then 
-		echo "\[\e[36m\]$icon\[\e[37;1m\] \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
+		echo "\[\e[36m\]$icon\[\e[37;1m\] \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
 	else 
-		echo "\[\e[31m\]$error \[\e[32;1m\](\[\e[37;1m\]$info \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | /usr/bin/sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]";
+		echo "\[\e[31m\]$error \[\e[32;1m\](\[\e[37;1m\]$info \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]";
 	fi
 
 
@@ -53,6 +53,7 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	platform='linux'
 
 	#Prompt
+	PROMPT_COMMAND="PS1=\`prompt $?\`"
 	#UTF8
 	#PS1="\`if [ \$? = 0 ];then echo \[\e[33m\]\">\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$( ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; else echo \"\[\e[31m\]ಠ_ಠ \[\e[32;1m\](\[\e[37;1m\]\u@\h \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]\"; fi\`"
 	#"
@@ -375,18 +376,34 @@ fi
 alias killvagrant="sudo vagrant halt" #premisson to kill?
 
 #Ruby bashrc
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
+#PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
 export GEM_HOME=$HOME/.gems
-export GEM_PATH=$HOME/.gems:/usr/lib/ruby/gems/1.8/
 
 #Librarian-chef has a deep stack!
 ulimit -s 16384
 
-export PATH=/usr/local/rvm/bin:/usr/local/share/npm/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$HOME/Sites/Go/bin:/opt/local/bin:/opt/local/sbin:/usr/local/share/npm/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$HOME/Sites/Go/bin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/local/go/bin:/usr/local/sbin:/etc/init.d:$HOME/Sites/GoRoot/bin:/Library/PostgreSQL/9.2/bin:/usr/local/sbin:/etc/init.d:$HOME/Sites/GoRoot/bin:/Library/PostgreSQL/9.2/bin:$HOME/.gems/bin
+export PATH=/usr/local/rvm/bin:\
+	/bin:\
+	/sbin:\
+	/usr/bin:\
+	/usr/sbin:\
+	/usr/local/bin:\
+	/usr/local/sbin:\
+	/usr/local/share/npm/bin:\
+	/opt/local/bin:\
+	/opt/local/sbin:\
+	/opt/X11/bin:\
+	$HOME/Sites/Go/bin:\
+	$HOME/Sites/GoRoot/bin:\
+	/usr/local/git/bin:\
+	/usr/local/go/bin:\
+	/etc/init.d:\
+	/Library/PostgreSQL/9.2/bin:\
+	$HOME/.gems/bin
 
 
-if which rbenv >/dev/null; then
-	eval "$(rbenv init -)"
-fi
+#if which rbenv 2>/dev/null; then
+	#eval "$(rbenv init -)"
+#fi
