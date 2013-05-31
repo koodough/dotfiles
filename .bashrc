@@ -385,23 +385,23 @@ export GEM_HOME=$HOME/.gems
 ulimit -s 16384
 
 export PATH=/usr/local/rvm/bin:\
-	/bin:\
-	/sbin:\
-	/usr/bin:\
-	/usr/sbin:\
-	/usr/local/bin:\
-	/usr/local/sbin:\
-	/usr/local/share/npm/bin:\
-	/opt/local/bin:\
-	/opt/local/sbin:\
-	/opt/X11/bin:\
-	$HOME/Sites/Go/bin:\
-	$HOME/Sites/GoRoot/bin:\
-	/usr/local/git/bin:\
-	/usr/local/go/bin:\
-	/etc/init.d:\
-	/Library/PostgreSQL/9.2/bin:\
-	$HOME/.gems/bin
+/bin:\
+/sbin:\
+/usr/bin:\
+/usr/sbin:\
+/usr/local/bin:\
+/usr/local/sbin:\
+/usr/local/share/npm/bin:\
+/opt/local/bin:\
+/opt/local/sbin:\
+/opt/X11/bin:\
+$HOME/Sites/Go/bin:\
+$HOME/Sites/GoRoot/bin:\
+/usr/local/git/bin:\
+/usr/local/go/bin:\
+/etc/init.d:\
+/Library/PostgreSQL/9.2/bin:\
+$HOME/.gems/bin
 
 
 #if which rbenv 2>/dev/null; then
