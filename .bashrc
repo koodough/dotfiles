@@ -16,6 +16,7 @@ case `uname` in
 	Darwin)
 		#icon="🍋 "
 		icon="⦿"
+		#icon="\u@\h"
 		#icon="( ° ͜ʖ °)"
 		#icon="ʕ◔ϖ◔ʔ"
 		#icon="(ಠ▽ಠ)"
@@ -23,8 +24,9 @@ case `uname` in
 		#error="( •_•)>⌐■-■"
 		#icon="ᶘ ᵒᴥᵒᶅ"
 		#icon="ಠ_ರೃ"
-		error="ಠ_ಠ"
-		info="\u@\h"
+		#error="ಠ_ಠ"
+		error="!!!!"
+		info="\u@\h "
 		;;
 	*)
 
@@ -37,7 +39,7 @@ function prompt {
 
 #No commands before the $?. Or it won't capture the user's command last command
 	if [ $? = 0 ];then 
-		echo "\[\e[36m\]$icon\[\e[37;1m\] \[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
+		echo "\[\e[36m\]$icon \[\e[37;1m\]\[\e[37;1m\]\W\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') \[\e[32;1m\](\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]"; 
 	else 
 		echo "\[\e[31m\]$error \[\e[32;1m\](\[\e[37;1m\]$info \$(id -u)\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\] \[\e[34;1m\]\$(ls -1 | /usr/bin/wc -l | sed 's: ::g') items\[\e[32;1m\])\n(\[\e[37;1m\]!\\!\[\e[32;1m\])\\$ \[\e[0m\]";
 	fi
@@ -65,6 +67,9 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	export EDITOR=$(which vim)
 
 	#Linux Commands
+	#GO GUI! Open file browser
+	alias open="nautilus"
+
 	##Free memory
 	alias purge="sync; echo 3 > /proc/sys/vm/drop_caches"
 	##Sleep
@@ -107,6 +112,7 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 	alias textedit='open -a TextEdit'
 	alias mvim='open -a MacVim'
 	alias flush='dscacheutil -flushcache'
+	alias updatedb="sudo /usr/libexec/locate.updatedb"
 
 	#QUICK edit
 	alias e='open -a MacVim'
@@ -316,6 +322,19 @@ fi
 
 }
 
+# Network Copy #
+
+# Copy Via SCP
+function scptarhome {
+
+folder=$1
+destination="$2 $3 $4 $5"
+
+tar czf - $folder | ssh $destination tar xzf - -C ~/
+
+}
+
+#Copy Via Net cat 
 
 
 #copy profile
@@ -330,6 +349,29 @@ scp -P $PORT ~/.bashrc $1:~/
 
 echo "scp -P $PORT ~/.inputrc $@:~/"
 scp -P $PORT ~/.bashrc $1:~/
+}
+
+
+function sync {
+
+SOURCE=$1
+DESTINATION=$2
+
+echo -e "rsync --partial --progress --human-readable --archive --update --delete-before --stats \n"
+#echo -e "rsync -Phau --delete-before --stats \n"
+echo "rsync -Phau --delete-before --stats $SOURCE $DESTINATION"
+echo "--delete-before will remove files from the $DESTINATION that are not on $SOURCE"
+read -p "Press Enter to rsync $SOURCE to $DESTINATION"
+
+rsync -Phau --delete-before --stats \
+"$SOURCE" "$DESTINATION" >> "$SOURCE/rsync_backup.log";
+
+}
+
+function sync-ssh {
+
+echo "sync-ssh"
+
 }
 
 
@@ -384,13 +426,14 @@ export GEM_HOME=$HOME/.gems
 #Librarian-chef has a deep stack!
 ulimit -s 16384
 
-export PATH=/usr/local/rvm/bin:\
-/bin:\
+#/usr/local/rvm/bin:\
+export PATH=/bin:\
+$HOME/.gems/gems:\
 /sbin:\
+/usr/local/sbin:\
+/usr/local/bin:\
 /usr/bin:\
 /usr/sbin:\
-/usr/local/bin:\
-/usr/local/sbin:\
 /usr/local/share/npm/bin:\
 /opt/local/bin:\
 /opt/local/sbin:\
@@ -404,6 +447,6 @@ $HOME/Sites/GoRoot/bin:\
 $HOME/.gems/bin
 
 
-#if which rbenv 2>/dev/null; then
-	#eval "$(rbenv init -)"
-#fi
+if which rbenv 2>/dev/null; then
+	eval "$(rbenv init -)"
+fi

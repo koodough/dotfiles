@@ -5,6 +5,8 @@
 #UTF8
 #defutf8 on
 #utf8 on
+#
+#Disable ctrl s - to stop screen from freezing!!!!!! goaaaaa
 
 #caption always "%n(%t) : %C"
 defscrollback 10000
@@ -35,8 +37,21 @@ termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007:ti@:te@'
 #defhstatus "screen ^E (^Et) | $USER@^EH"
 
 
+# disable flow control (buggy)
+defflow off             
+# free ctrl-s
+bind s                  
+# Also put this in your shell startup file:
+# tty > /dev/null && stty -ixon -ixoff
+# Use ctrl-s as the escape key or invoke with screen -e'^Ss'
+#escape ^Ss  
+
+
+
 # fix scrollback in putty
 termcapinfo xterm* ti@:te@
+# case insensitive search in scroll-back mode
+ignorecase on           
 
 source $HOME/.screenrc_aliases
 
@@ -49,4 +64,5 @@ screen -t Home 1
 screen
 #screen -t bash 3 
 #screen -t bash 4 
-#screen -t bash 5
+chdir $HOME/Kitchen
+screen -t Kitchen 5

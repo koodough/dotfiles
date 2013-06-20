@@ -161,7 +161,13 @@ map <D-r> :SafariReload<Enter>
 inoremap <D-}> :tabn
 inoremap <D-{> :tabp
 
+"
+"set tags=tags;/
 
+"map <C-}> :tabn
+"map <C-{> :tabp
+nmap <C-p> :tabn<CR>
+nmap <C-o> :tabp<CR>
 
 source $HOME/.vim_aliases
 
