@@ -9,7 +9,8 @@
 #Prompt Theme
 case `uname` in
 	Linux)
-		icon=">"
+		#icon=">"
+		icon="\u@\h"
 		error="0_0"
 		info="\u@\h"
 		;;
@@ -77,6 +78,8 @@ if [[ "$unamestr" == 'Linux' ]]; then
 	alias n8="sleepytime"
 	alias ls='ls -lhp --color -G'
 
+	
+	alias VirtualBox="for m in vbox{drv,netadp,netflt}; do modprobe $m; done; VirtualBox &"
 	function VBox {
 	for m in vbox{drv,netadp,netflt}; do modprobe $m; done; 
 	VirtualBox;
@@ -371,6 +374,66 @@ rsync -Phau --delete-before --stats \
 function sync-ssh {
 
 echo "sync-ssh"
+
+}
+
+
+alias tasks="cd ~/Tasks/";
+alias todos="cd ~/Tasks/";
+alias task="cd ~/Tasks/";
+alias todo="cd ~/Tasks/";
+
+#What do you intend to do?
+function intend {
+
+#Inputs
+directory=$1
+options=$2
+
+#Go to directory
+cd $directory
+
+#Name of directory
+name="`basename \`pwd\``"
+
+#Total number of tasks
+#tasks="`ls -l ~/Tasks/ | wc -l`"
+
+
+
+while test -n "$@"; do
+   case "$@" in	
+	   "")
+			mkdir -p ~/Tasks/
+
+			echo "~/Tasks/$name"
+			if [[ -h "$HOME/Tasks/$name" ]]; then
+				echo "$HOME/Tasks/$name already exists";
+				cd "$HOME/Tasks/$name"
+				break
+				exit 0;
+			fi
+
+
+			echo "Adding $name to Tasks $tasks."
+			#echo "ln -s `pwd` ~/Tasks/$name"
+			ln -s `pwd` ~/Tasks/$name
+			break
+			shift
+			;;
+		rm|--remove|-r)
+			rm "~/Tasks/$name"
+			shift
+			;;
+		help|--help|-h|*)
+			echo "Usage intend ~/Kitchen/cookbooks/apache; vim README.md"
+			shift
+			;;
+	esac
+done
+
+clear
+ls -l
 
 }
 

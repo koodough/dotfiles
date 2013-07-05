@@ -55,13 +55,12 @@ ignorecase on
 source $HOME/.screenrc_aliases
 
 
-chdir /var/log
-screen -t Logs 0
 
-chdir $HOME/
+#chdir $HOME/
 screen -t Home 1
-screen
-#screen -t bash 3 
-#screen -t bash 4 
-chdir $HOME/Kitchen
-screen -t Kitchen 5
+screen -t SSH 2
+#chdir $HOME/Kitchen
+screen -t chef 3
+
+chdir /var/log
+screen -t Logs 9
